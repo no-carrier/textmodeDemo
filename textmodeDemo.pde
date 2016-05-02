@@ -5,22 +5,24 @@ PImage img; // FG image
 int segSize = 4; // segment size that screen is divided by, which is set to 4 
 float tick = 0; // simple counter
 
+float shapeScale = 1;
+int shapeSize = 1;  // set in setup to "= width/segSize"
+
 void setup() {
-  size(1024, 768, P2D);
-  loadFont(); // load font for textmode output
+  size(1024, 768, P2D);    
+
   noSmooth();
   noCursor();
 
-  // mask variables
-  shapeSize = width/segSize; // for mask
-
+  initTextmode(); // set up buffer, load font for textmode output
+  initPlasma();   // set up plasma lookup tables to make it fast
   img = loadImage("8static2.png");
-  initPlasma();
 }
 
 void draw() {
   if (doDraw) {
     tick = tick + 0.01; // increment counter
+
     // background layer
     if (bgOn) { // if BG is enabled, then draw one :)
       b.beginDraw();    
@@ -53,7 +55,6 @@ void draw() {
     } else {
       background(0);
       image(b, 0, 0, width, height);   // ...or display buffer (stretched to fit screen)
-      //renderTextMode(); // (uncomment to display text on top of buffer for debugging purposes)
     }
 
     if (fps) { // display FPS if toggled
@@ -65,6 +66,15 @@ void draw() {
   } // end doDraw
 } // end draw
 
+void initTextmode() {
+  segSize = 4;
+  //  800x600 / segSize of 4 = 200x150 buffer --- 1024x768 / segSize of 4 = 256x192 buffer
+  b = createGraphics(width/segSize, height/segSize, P2D);
+  font = loadFont("Px437_IBM_BIOS-16.vlw");
+  textFont(font, 16); // size of font
+  textAlign(LEFT, TOP);
+}
+
 void drawImage() {
   b.imageMode(CENTER);
   b.pushMatrix();
@@ -75,11 +85,13 @@ void drawImage() {
   b.popMatrix();
 }
 
-void loadFont() {
-  segSize = 4;
-  //  800x600 / segSize of 4 = 200x150 buffer --- 1024x768 / segSize of 4 = 256x192 buffer
-  b = createGraphics(width/segSize, height/segSize, P2D);
-  font = loadFont("Px437_IBM_BIOS-16.vlw");
-  textFont(font, 16); // size of font
-  textAlign(LEFT, TOP);
+void drawCircleMask() { // circular mask, moves in and out
+  shapeSize -= shapeScale;
+  b.fill(0);
+  if (shapeSize < 0 || shapeSize > b.width) {
+    shapeScale *= -1;
+  }
+  b.strokeWeight(6);
+  b.stroke(255);
+  b.ellipse(b.width/2, b.height/2, shapeSize, shapeSize );
 }
