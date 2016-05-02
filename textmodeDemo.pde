@@ -8,6 +8,9 @@ float tick = 0; // simple counter
 float shapeScale = 1;
 int shapeSize = 1;  // set in setup to "= width/segSize"
 
+// other varibles exist on keyPressed and plasma tags
+// for (hopefully) better readability / less confusion
+
 void setup() {
   size(1024, 768, P2D);    
 

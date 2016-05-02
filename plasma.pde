@@ -1,6 +1,10 @@
 // original source code from luis2048 @ luis.net/portfolio/processing/
 // thank you, luis! <3
 
+// not going to bother commenting this,
+// so go here to find out more about the
+// classic plasma effect: http://lodev.org/cgtutor/plasma.html
+
 int palPlasma []=new int [128];
 int[] cls;
 
