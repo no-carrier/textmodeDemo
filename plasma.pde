@@ -1,4 +1,4 @@
-// source code from luis @ luis.net/portfolio/processing/
+// original source code from luis2048 @ luis.net/portfolio/processing/
 // thank you, luis! <3
 
 int palPlasma []=new int [128];

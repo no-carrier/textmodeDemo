@@ -75,7 +75,7 @@ void initTextmode() {
   textAlign(LEFT, TOP);
 }
 
-void drawImage() {
+void drawImage() { // draw the rotating and resizing 8static logo
   b.imageMode(CENTER);
   b.pushMatrix();
   b.translate(b.width/2, b.height/2);
@@ -85,13 +85,11 @@ void drawImage() {
   b.popMatrix();
 }
 
-void drawCircleMask() { // circular mask, moves in and out
+void drawCircleMask() { // circular mask, moves in and out to cover BG
   shapeSize -= shapeScale;
-  b.fill(0);
   if (shapeSize < 0 || shapeSize > b.width) {
     shapeScale *= -1;
   }
-  b.strokeWeight(6);
-  b.stroke(255);
+  b.fill(0);
   b.ellipse(b.width/2, b.height/2, shapeSize, shapeSize );
 }
