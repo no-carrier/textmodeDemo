@@ -1,39 +1,18 @@
-void keyPressed() {
-  // BACKGROUND \\
-  if (key == '1') {
-    bg = 1; // set bg layer to 1 (see draw switch statement)
-  }
-  if (key == '2') {
-    bg = 2;
-  }
-  if (key == '3') {
-    bg = 3;
-  }
-  // FOREGROUND \\
-  if (key == '4') {
-    fg = 1;
-  }  
-  if (key == '5') {
-    fg = 2;
-  }  
-  if (key == '6') {
-    fg = 3;
-  }    
-  // MASK \\
-  if (key == '7') { // circle
-    shapeSize = width/segSize;
-    mask = 1;
-  }   
-  if (key == '8') { // diamond
-    shapeSize = 0;
-    shapeScale = 1;
-    mask = 2;
-  }
-  if (key == '9') {
-    mask = 3;
-  }      
+// toggle each layer
+boolean bgOn = true;
+boolean fgOn = true;
+boolean maskOn = true; 
 
-  // OTHER COMMANDS
+// sets ANSI block or ASCII text mode, see renderTextMode tab
+boolean blockMode = false; 
+
+boolean fps = false; // display FPS, toggle with 1  
+boolean doDraw = true; 
+boolean textMode = true; // display text or buffer, toggle with spacebar
+
+void keyPressed() {
+
+  // top row: toggle the foreground, background, and mask layers
   if (key == 'q') {
     bgOn = !bgOn;
   }
@@ -44,17 +23,19 @@ void keyPressed() {
     maskOn = !maskOn;
   }
 
-
-  if (key == 'z') {
-    textMode = !textMode; // toggle text / buffer modes
+  // middle row: toggle between colored ASCII or ANSI rendering - see renderTextMode tab to see details
+  if (key == 'a') {
+    blockMode = !blockMode;
   }
-  if (key == 'x') { // toggle FPS display
+
+  // bottom row: display framework, pause, and toggle between buffer / textmode 
+  if (key == 'z') { 
     fps = !fps;
   }
-  if (key == 'c') { // pause sketch (for debugging)
+  if (key == 'x') { 
     doDraw = !doDraw;
   }
-  if (key == 'v') { // sets ANSI block or ASCII text mode, see renderTextMode tab
-    blockMode = !blockMode;
+  if (key == 'c') { 
+    textMode = !textMode;
   }
 }

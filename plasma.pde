@@ -1,7 +1,6 @@
 // source code from luis @ luis.net/portfolio/processing/
 // thank you, luis! <3
 
-// variables for plasma (see tab)
 int palPlasma []=new int [128];
 int[] cls;
 
