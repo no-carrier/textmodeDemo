@@ -90,7 +90,7 @@ void drawImage() { // draw the rotating and resizing 8static logo
 
 void drawCircleMask() { // circular mask, moves in and out to cover BG
   shapeSize -= shapeScale;
-  if (shapeSize < 0 || shapeSize > b.width) {
+  if (shapeSize < 0 || shapeSize > b.width * 1.25) {
     shapeScale *= -1;
   }
   b.fill(0);
